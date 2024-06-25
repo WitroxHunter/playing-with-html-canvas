@@ -3,21 +3,53 @@ import "./App.css";
 
 function Canvas(props) {
   const canvasRef = useRef(null);
+  const scaleRef = useRef(1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const draw = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    // Clear the canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the rectangle
-    context.fillStyle = "white";
-    context.fillRect(props.x, props.y, 10, 10);
-  }, [props.x, props.y]); // Dependency array includes props.x and props.y
+      // Apply scaling
+      context.save();
+      context.scale(scaleRef.current, scaleRef.current);
+
+      // Draw the rectangle
+      context.fillStyle = "white";
+      context.fillRect(props.x, props.y, 10, 10);
+
+      context.restore();
+    };
+
+    draw();
+  }, [props.x, props.y, props.scale]);
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      event.preventDefault();
+      if (event.deltaY < 0) {
+        // Zoom in
+        scaleRef.current = Math.min(scaleRef.current * 1.1, 5);
+      } else {
+        // Zoom out
+        scaleRef.current = Math.max(scaleRef.current / 1.1, 0.2);
+      }
+      props.setScale(scaleRef.current);
+    };
+
+    const canvas = canvasRef.current;
+    canvas.addEventListener("wheel", handleWheel);
+
+    return () => {
+      canvas.removeEventListener("wheel", handleWheel);
+    };
+  }, [props]);
 
   return <canvas ref={canvasRef} className="canvas"></canvas>;
 }
@@ -25,6 +57,7 @@ function Canvas(props) {
 function App() {
   const [x, setX] = useState(10);
   const [y, setY] = useState(10);
+  const [scale, setScale] = useState(1);
 
   const handleClickLeft = () => {
     setX((prevX) => prevX - 10);
@@ -73,7 +106,7 @@ function App() {
       <div className="main">
         <div className="header">Witam wszystkich bardzo serdecznie</div>
         <div className="content">
-          <Canvas x={x} y={y} />
+          <Canvas x={x} y={y} scale={scale} setScale={setScale} />
         </div>
         <div className="footer">
           <button className="moveButton" onClick={handleClickLeft}>
