@@ -43,7 +43,7 @@ function App() {
           <button className="moveButton" onClick={handleClickLeft}>
             {"<"}
           </button>
-          <button className="moveButton" onCanPlay={handleClickRight}>
+          <button className="moveButton" onClick={handleClickRight}>
             {">"}
           </button>
         </div>
