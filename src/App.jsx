@@ -59,35 +59,35 @@ function App() {
   const [y, setY] = useState(10);
   const [scale, setScale] = useState(1);
 
-  const handleClickLeft = () => {
+  const moveLeft = () => {
     setX((prevX) => prevX - 10);
   };
 
-  const handleClickRight = () => {
+  const moveRight = () => {
     setX((prevX) => prevX + 10);
   };
 
-  const handleClickUp = () => {
+  const moveUp = () => {
     setY((prevY) => prevY - 10);
   };
 
-  const handleClickDown = () => {
+  const moveDown = () => {
     setY((prevY) => prevY + 10);
   };
 
   const handleKeyDown = (event) => {
     switch (event.key) {
       case "ArrowLeft":
-        handleClickLeft();
+        moveLeft();
         break;
       case "ArrowRight":
-        handleClickRight();
+        moveRight();
         break;
       case "ArrowUp":
-        handleClickUp();
+        moveUp();
         break;
       case "ArrowDown":
-        handleClickDown();
+        moveDown();
         break;
       default:
         break;
@@ -108,20 +108,7 @@ function App() {
         <div className="content">
           <Canvas x={x} y={y} scale={scale} setScale={setScale} />
         </div>
-        <div className="footer">
-          <button className="moveButton" onClick={handleClickLeft}>
-            {"<"}
-          </button>
-          <button className="moveButton" onClick={handleClickUp}>
-            {"^"}
-          </button>
-          <button className="moveButton" onClick={handleClickDown}>
-            {"v"}
-          </button>
-          <button className="moveButton" onClick={handleClickRight}>
-            {">"}
-          </button>
-        </div>
+        <div className="footer"></div>
       </div>
     </>
   );
