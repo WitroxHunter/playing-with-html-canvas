@@ -56,20 +56,7 @@ function App() {
         <div className="content">
           <Canvas x={x} y={y} scale={scale} setScale={setScale} />
         </div>
-        <div className="footer">
-          <button className="moveButton" onClick={moveLeft}>
-            {"<"}
-          </button>
-          <button className="moveButton" onClick={moveUp}>
-            {"^"}
-          </button>
-          <button className="moveButton" onClick={moveDown}>
-            {"v"}
-          </button>
-          <button className="moveButton" onClick={moveRight}>
-            {">"}
-          </button>
-        </div>
+        <div className="footer"></div>
       </div>
     </>
   );
