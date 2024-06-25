@@ -15,14 +15,11 @@ function Canvas(props) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      // Clear the canvas
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Apply scaling
       context.save();
       context.scale(scaleRef.current, scaleRef.current);
 
-      // Draw the rectangle
       context.fillStyle = "white";
       context.fillRect(props.x, props.y, 10, 10);
 
@@ -36,10 +33,8 @@ function Canvas(props) {
     const handleWheel = (event) => {
       event.preventDefault();
       if (event.deltaY < 0) {
-        // Zoom in
         scaleRef.current = Math.min(scaleRef.current * 1.1, 5);
       } else {
-        // Zoom out
         scaleRef.current = Math.max(scaleRef.current / 1.1, 0.2);
       }
       setScale(scaleRef.current);
