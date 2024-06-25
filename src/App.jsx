@@ -7,35 +7,19 @@ function App() {
   const [y, setY] = useState(10);
   const [scale, setScale] = useState(1);
 
-  const moveLeft = () => {
-    setX((prevX) => prevX - 10);
-  };
-
-  const moveRight = () => {
-    setX((prevX) => prevX + 10);
-  };
-
-  const moveUp = () => {
-    setY((prevY) => prevY - 10);
-  };
-
-  const moveDown = () => {
-    setY((prevY) => prevY + 10);
-  };
-
   const handleKeyDown = (event) => {
     switch (event.key) {
       case "ArrowLeft":
-        moveLeft();
+        setX((prevX) => prevX - 10);
         break;
       case "ArrowRight":
-        moveRight();
+        setX((prevX) => prevX + 10);
         break;
       case "ArrowUp":
-        moveUp();
+        setY((prevY) => prevY - 10);
         break;
       case "ArrowDown":
-        moveDown();
+        setY((prevY) => prevY + 10);
         break;
       default:
         break;
