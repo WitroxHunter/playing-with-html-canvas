@@ -54,9 +54,16 @@ function App() {
       <div className="main">
         <div className="header">Witam wszystkich bardzo serdecznie</div>
         <div className="content">
-          <Canvas x={x} y={y} scale={scale} setScale={setScale} />
+          <Canvas
+            x={x}
+            y={y}
+            scale={scale}
+            setScale={setScale}
+            setX={setX}
+            setY={setY}
+          />
         </div>
-        <div className="footer"></div>
+        <div className="footer">Controls - Move: arrow keys</div>
       </div>
     </>
   );

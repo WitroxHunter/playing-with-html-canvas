@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function Canvas(props) {
   const canvasRef = useRef(null);
   const scaleRef = useRef(1);
+  const draggingRef = useRef(false);
+  const lastMousePositionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -42,11 +44,36 @@ function Canvas(props) {
       props.setScale(scaleRef.current);
     };
 
+    const handleMouseDown = (event) => {
+      draggingRef.current = true;
+      lastMousePositionRef.current = { x: event.clientX, y: event.clientY };
+    };
+
+    const handleMouseMove = (event) => {
+      if (draggingRef.current) {
+        const dx = event.clientX - lastMousePositionRef.current.x;
+        const dy = event.clientY - lastMousePositionRef.current.y;
+        props.setX((prevX) => prevX + dx / scaleRef.current);
+        props.setY((prevY) => prevY + dy / scaleRef.current);
+        lastMousePositionRef.current = { x: event.clientX, y: event.clientY };
+      }
+    };
+
+    const handleMouseUp = () => {
+      draggingRef.current = false;
+    };
+
     const canvas = canvasRef.current;
     canvas.addEventListener("wheel", handleWheel);
+    canvas.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
       canvas.removeEventListener("wheel", handleWheel);
+      canvas.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [props]);
 
