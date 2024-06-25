@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function Canvas(props) {
+  const [scale, setScale] = useState(1);
   const canvasRef = useRef(null);
   const scaleRef = useRef(1);
   const draggingRef = useRef(false);
@@ -29,7 +30,7 @@ function Canvas(props) {
     };
 
     draw();
-  }, [props.x, props.y, props.scale]);
+  }, [props.x, props.y, scale]);
 
   useEffect(() => {
     const handleWheel = (event) => {
@@ -41,7 +42,7 @@ function Canvas(props) {
         // Zoom out
         scaleRef.current = Math.max(scaleRef.current / 1.1, 0.2);
       }
-      props.setScale(scaleRef.current);
+      setScale(scaleRef.current);
     };
 
     const handleMouseDown = (event) => {

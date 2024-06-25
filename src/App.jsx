@@ -5,7 +5,6 @@ import "./App.css";
 function App() {
   const [x, setX] = useState(10);
   const [y, setY] = useState(10);
-  const [scale, setScale] = useState(1);
 
   const handleKeyDown = (event) => {
     switch (event.key) {
@@ -38,14 +37,7 @@ function App() {
       <div className="main">
         <div className="header">Witam wszystkich bardzo serdecznie</div>
         <div className="content">
-          <Canvas
-            x={x}
-            y={y}
-            scale={scale}
-            setScale={setScale}
-            setX={setX}
-            setY={setY}
-          />
+          <Canvas x={x} y={y} setX={setX} setY={setY} />
         </div>
         <div className="footer">Controls - Move: arrow keys</div>
       </div>
